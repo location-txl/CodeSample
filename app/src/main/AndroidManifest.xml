@@ -13,16 +13,17 @@
         android:theme="@style/Theme.CodeSample"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".weight.RefreshTestActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CodeSample">
+            android:theme="@style/Theme.Temp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
