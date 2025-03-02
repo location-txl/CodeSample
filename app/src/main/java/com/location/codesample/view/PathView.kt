@@ -1,8 +1,5 @@
 package com.location.codesample.view
 
-import android.R.attr.centerX
-import android.R.attr.centerY
-import android.R.attr.radius
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -16,6 +13,7 @@ import android.graphics.RectF
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.withTranslation
 import com.location.codesample.databinding.ActivityPathTestBinding
@@ -88,8 +86,8 @@ class PathView @JvmOverloads constructor(
 
     class Dashboard(view: View) : PathProvider(view) {
         companion object {
-            private val DASH_WIDTH = 2.dp.toFloat()
-            private val DASH_LENGTH = 10.dp.toFloat()
+            private val DASH_WIDTH = 2.dpView.toFloat()
+            private val DASH_LENGTH = 10.dpView.toFloat()
             private const val OPEN_ANGLE = 120f
             private const val START_ANGLE = 90 + OPEN_ANGLE / 2f
             private const val SWIPE_ANGLE = 360 - OPEN_ANGLE
@@ -101,7 +99,7 @@ class PathView @JvmOverloads constructor(
         private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.BLACK
             style = Paint.Style.STROKE
-            strokeWidth = 3.dp.toFloat()
+            strokeWidth = 3.dpView.toFloat()
         }
 
         private var dashEffect: PathEffect? = null
@@ -131,7 +129,7 @@ class PathView @JvmOverloads constructor(
             centerY = view.height / 2f
             with(path) {
                 reset()
-                radius = min(view.width, view.height) / 2 - 100.dp
+                radius = min(view.width, view.height) / 2 - 100.dpView
                 lineLength = radius * 0.8f
                 val left = centerX - radius
                 val top = centerY - radius
@@ -171,7 +169,7 @@ class PathView @JvmOverloads constructor(
         private val paint2Angle = 360 - paint1Angle
         private val paint2Radians = Math.toRadians(paint2Angle / 2.toDouble())
 
-        private val LENGTH = 15.dp
+        private val LENGTH = 15.dpView
         override fun onDraw(canvas: Canvas) {
             canvas.drawArc(dashRectF, 0f, paint1Angle, true, paint1)
 
@@ -184,7 +182,7 @@ class PathView @JvmOverloads constructor(
 
         override fun onSizeChange() {
 
-           val  radius = min(view.width, view.height) / 2 - 100.dp
+           val  radius = min(view.width, view.height) / 2 - 100.dpView
             val left = view.width/2 - radius
             val top = view.height/2 - radius
             val right = view.width/2 + radius
@@ -197,14 +195,15 @@ class PathView @JvmOverloads constructor(
 }
 
 
-val Int.dp: Int
+val Int.dpView: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 
 class PathActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPathTestBinding.inflate(layoutInflater) }
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
 }
