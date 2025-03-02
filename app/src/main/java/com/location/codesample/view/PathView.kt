@@ -198,6 +198,13 @@ class PathView @JvmOverloads constructor(
 val Int.dpView: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
+val Float.dpView: Float
+    get() = this.toInt().dpView.toFloat()
+
+
+val Int.spView: Int
+    get() = (this * Resources.getSystem().displayMetrics.scaledDensity + 0.5f).toInt()
+
 
 class PathActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPathTestBinding.inflate(layoutInflater) }

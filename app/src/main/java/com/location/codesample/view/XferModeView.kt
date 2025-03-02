@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.os.Bundle
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.AttributeSet
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -129,18 +130,20 @@ class XferModeView @JvmOverloads constructor(
     }
 
 
-    private fun getBitmap(resId: Int, width: Int): Bitmap{
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        BitmapFactory.decodeResource(resources, resId, options)
-        with(options){
-            inJustDecodeBounds = false
-            inDensity = this.outWidth
-            inTargetDensity = width
-        }
-        return BitmapFactory.decodeResource(resources, resId, options)
-    }
 
+
+}
+
+fun View.getBitmap(resId: Int, width: Int): Bitmap{
+    val options = BitmapFactory.Options()
+    options.inJustDecodeBounds = true
+    BitmapFactory.decodeResource(resources, resId, options)
+    with(options){
+        inJustDecodeBounds = false
+        inDensity = this.outWidth
+        inTargetDensity = width
+    }
+    return BitmapFactory.decodeResource(resources, resId, options)
 }
 
 class XferModelActivity : AppCompatActivity() {
