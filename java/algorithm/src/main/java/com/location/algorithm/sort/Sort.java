@@ -43,6 +43,12 @@ public class Sort {
         }
     }
 
+
+    /**
+     * 插入排序
+     * 1.从前往后遍历未排序的数据 如果当前数据比已经排序的数据大 则插入到已经排序的数据后面 否则往
+     * @param array
+     */
     public static void insertSort(int[] array){
         /**
          * 已经排好序的索引 包含当前 默认为0
@@ -51,7 +57,7 @@ public class Sort {
         final int len = array.length;
         for(int i = sortIndex + 1; i < len; i++){
             //第一层for循坏 遍历后面未排序的数据
-            boolean insert =false;//是否插入
+            boolean insert = false;//是否插入
             for(int j = sortIndex; j >= 0; j--){
                 //第二层for循坏 遍历已经排序的数据
                 //如果当前数据比已经排序的数据大 则插入到已经排序的数据后面
@@ -230,6 +236,50 @@ public class Sort {
     }
 
 
+    public static void bucketSort(int[] array){
+
+
+    }
+
+
+    /**
+     * 计数排序
+     * @param array
+     */
+    public static void countingSort(int[] array){
+        final int len = array.length;
+        int min = array[0];
+        int max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            int v = array[i];
+            if(v > max){
+                max = v;
+            }
+            if(v < min){
+                min = v;
+            }
+        }
+        //申请一个计数器数组
+        int[] countArray = new int[max - min + 1];
+        for (int v : array) {
+            countArray[v - min]++;
+        }
+
+        // 依次累加
+        for (int i = 1; i < countArray.length; i++) {
+            countArray[i] += countArray[i - 1];
+        }
+        int[] sortArray = new int[len];
+        for (int i = len - 1; i >= 0; i--) {
+            int v = array[i];
+            int index = --countArray[v - min];
+            sortArray[index] = v;
+        }
+
+        System.arraycopy(sortArray, 0, array, 0, len);
+    }
+
+
 
     public static void main(String[] args) {
 //        int[] array = new int[]{10,8,3,2,9};
@@ -240,9 +290,13 @@ public class Sort {
 //        int[] ints = mergeSort(array, 0, array.length - 1);
 //        System.out.println(Arrays.toString(ints));
 
-        int[] array = new int[]{6,11,3,9};
+        int[] array = new int[]{6,11,3,9,-1};
         quickSort(array, 0, array.length - 1);
         System.out.println(Arrays.toString(array));
+
+
+        countingSort(array);
+        System.out.println("t[0]=" + Arrays.toString(array));
 
     }
 
