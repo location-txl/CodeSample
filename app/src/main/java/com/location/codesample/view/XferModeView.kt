@@ -134,7 +134,7 @@ class XferModeView @JvmOverloads constructor(
 
 }
 
-fun View.getBitmap(resId: Int, width: Int): Bitmap{
+fun View.getBitmap(resId: Int, width: Int, preciseSize: Boolean = true): Bitmap{
     val options = BitmapFactory.Options()
     options.inJustDecodeBounds = true
     BitmapFactory.decodeResource(resources, resId, options)
@@ -143,7 +143,13 @@ fun View.getBitmap(resId: Int, width: Int): Bitmap{
         inDensity = this.outWidth
         inTargetDensity = width
     }
-    return BitmapFactory.decodeResource(resources, resId, options)
+    return BitmapFactory.decodeResource(resources, resId, options).let {
+        if(preciseSize){
+            Bitmap.createScaledBitmap(it, width, width, true)
+        }else{
+            it
+        }
+    }
 }
 
 class XferModelActivity : AppCompatActivity() {
