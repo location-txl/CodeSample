@@ -13,6 +13,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log.w
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.withTranslation
 import com.location.codesample.R
@@ -36,7 +37,6 @@ class TestTextView @JvmOverloads constructor(
         color = Color.parseColor("#1e88e5")
         style = Paint.Style.STROKE
         strokeWidth = strokeSize
-
 
     }
 
